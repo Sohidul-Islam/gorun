@@ -11,6 +11,14 @@ import {
 import Image from "next/image";
 
 import logo from "../../../assets/logo.png";
+import { useGlobalContext } from "@/src/context";
+import AccountMenu from "./AccountMenu";
+import { useState } from "react";
+import {
+  NotificationImportant,
+  Notifications,
+  Support,
+} from "@mui/icons-material";
 
 const getConsoleName = (userType, adminType) => {
   if (userType === "admin" && adminType === "admin") {
@@ -39,6 +47,17 @@ const getConsoleName = (userType, adminType) => {
 };
 
 export default function Topbar({ setSidebar, sidebar }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { currentUser } = useGlobalContext();
+  const { admin } = currentUser;
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Stack
       direction="row"
@@ -90,28 +109,26 @@ export default function Topbar({ setSidebar, sidebar }) {
         </Box> */}
       </Stack>
       <Stack direction="row" alignItems="center" gap="25px">
-        {/* <Typography variant="body2">
-          <SupportIcon /> Get Support
+        <Typography
+          variant="body2"
+          sx={{ display: "flex", alignItems: "center", gap: 2 }}
+        >
+          <Support sx={{ color: "primary.main" }} /> Get Support
         </Typography>
         <Button variant="text" disableRipple sx={{ minWidth: 0 }}>
-          <NotificationIcon />
-        </Button> */}
-        <IconButton
-          onClick={() => {
-            console.log("Get Support");
-          }}
-          disableRipple
-        >
+          <Notifications />
+        </Button>
+        <IconButton onClick={handleClick} disableRipple>
           <Avatar
             // src={und}
             alt="photo"
             sx={{ width: 36, height: 36, textTransform: "uppercase" }}
           >
-            {/* {altName} */}A
+            {(admin?.name || "S").charAt(0)}
           </Avatar>
         </IconButton>
       </Stack>
-      {/* <AccountMenu anchorEl={anchorEl} handleClose={handleClose} /> */}
+      <AccountMenu anchorEl={anchorEl} handleClose={handleClose} />
     </Stack>
   );
 }

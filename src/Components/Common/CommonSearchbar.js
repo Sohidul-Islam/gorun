@@ -1,31 +1,33 @@
-import { Box, Button, Stack } from '@mui/material';
-import { debounce } from '@mui/material/utils';
-import moment from 'moment';
-import { useMemo } from 'react';
-import FilterSelect from '../Filter/FilterSelect';
-import StyledDateRangePicker from '../Styled/StyledDateRangePicker';
-import StyledSearchBar from '../Styled/StyledSearchBar';
-import ThreeDotsMenu from '../ThreeDotsMenu2';
+import { Box, Button, Stack } from "@mui/material";
+import { debounce } from "@mui/material/utils";
+import moment from "moment";
+import { useMemo } from "react";
+
+import StyledDateRangePicker from "../Styled/StyledDateRangePicker";
+import StyledSearchBar from "../Styled/StyledSearchBar";
+
+import FilterSelect from "./Filter/FilterSelect";
+import ThreeDotsMenu from "./ThreeDotsMenu2";
 
 const sortOptions = [
   {
-    label: 'Desc',
-    value: 'DESC',
+    label: "Desc",
+    value: "DESC",
   },
   {
-    label: 'Asc',
-    value: 'ASC',
+    label: "Asc",
+    value: "ASC",
   },
 ];
 
 const statusOptions = [
   {
-    label: 'Active',
-    value: 'active',
+    label: "Active",
+    value: "active",
   },
   {
-    label: 'Inactive',
-    value: 'inactive',
+    label: "Inactive",
+    value: "inactive",
   },
 ];
 
@@ -48,7 +50,11 @@ export default function SearchBar({
   const updateSearch = useMemo(
     () =>
       debounce((e) => {
-        setQueryParams((prev) => ({ ...prev, searchKey: e.target.value, page: 1 }));
+        setQueryParams((prev) => ({
+          ...prev,
+          searchKey: e.target.value,
+          page: 1,
+        }));
       }, searchDebounceTime),
     []
   );
@@ -67,14 +73,20 @@ export default function SearchBar({
       )}
       {showFilters?.date && (
         <StyledDateRangePicker
-          startDate={queryParams.startDate === 'null' ? null : moment(queryParams.startDate)}
-          endDate={queryParams.endDate === 'null' ? null : moment(queryParams.endDate)}
+          startDate={
+            queryParams.startDate === "null"
+              ? null
+              : moment(queryParams.startDate)
+          }
+          endDate={
+            queryParams.endDate === "null" ? null : moment(queryParams.endDate)
+          }
           onChange={({ startDate, endDate }) => {
             console.log({ startDate, moment: moment(startDate) });
             setQueryParams((prev) => ({
               ...prev,
-              startDate: startDate?.format('YYYY-MM-DD'),
-              endDate: endDate?.format('YYYY-MM-DD'),
+              startDate: startDate?.format("YYYY-MM-DD"),
+              endDate: endDate?.format("YYYY-MM-DD"),
               page: 1,
             }));
           }}
@@ -89,10 +101,14 @@ export default function SearchBar({
           tooltip="Sort"
           size="sm"
           sx={{
-            minWidth: 'auto',
+            minWidth: "auto",
           }}
           onChange={(e) => {
-            setQueryParams((prev) => ({ ...prev, sortBy: e.target.value, page: 1 }));
+            setQueryParams((prev) => ({
+              ...prev,
+              sortBy: e.target.value,
+              page: 1,
+            }));
           }}
         />
       )}
@@ -105,10 +121,14 @@ export default function SearchBar({
           tooltip="Status"
           size="sm"
           sx={{
-            minWidth: 'auto',
+            minWidth: "auto",
           }}
           onChange={(e) => {
-            setQueryParams((prev) => ({ ...prev, status: e.target.value, page: 1 }));
+            setQueryParams((prev) => ({
+              ...prev,
+              status: e.target.value,
+              page: 1,
+            }));
           }}
         />
       )}
@@ -121,10 +141,14 @@ export default function SearchBar({
           tooltip={customSelectPlaceholder}
           size="sm"
           sx={{
-            minWidth: 'auto',
+            minWidth: "auto",
           }}
           onChange={(e) => {
-            setQueryParams((prev) => ({ ...prev, [customSelectValue]: e.target.value, page: 1 }));
+            setQueryParams((prev) => ({
+              ...prev,
+              [customSelectValue]: e.target.value,
+              page: 1,
+            }));
           }}
         />
       )}
@@ -138,7 +162,11 @@ export default function SearchBar({
       )}
       {/* menu */}
       {showFilters?.menu && (
-        <ThreeDotsMenu handleMenuClick={menuHandler} menuItems={menuItems} ButtonComponent={MenuButton} />
+        <ThreeDotsMenu
+          handleMenuClick={menuHandler}
+          menuItems={menuItems}
+          ButtonComponent={MenuButton}
+        />
       )}
     </Stack>
   );

@@ -64,7 +64,6 @@ export default function MenuList({ menuList, variant, onLinkClick }) {
         {menuList?.menu?.map(({ to, icon: Icon, label }, index) => (
           <Link
             href={to}
-            exact
             key={index}
             className="sidebar-menu-item"
             style={{

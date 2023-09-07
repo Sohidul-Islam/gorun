@@ -1,18 +1,24 @@
 // mui
-import { Box, Breadcrumbs, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Breadcrumbs, Typography } from "@mui/material";
+import Link from "next/link";
 
 const contianerSx = {};
 
 const linkStyle = (isActive) => ({
-  fontSize: '13px',
-  fontWeight: '500',
-  lineHeight: '21px',
-  display: 'inline-block',
-  color: `${isActive ? '#363636' : '#737373'}`,
+  fontSize: "13px",
+  fontWeight: "500",
+  lineHeight: "21px",
+  display: "inline-block",
+  color: `${isActive ? "#363636" : "#737373"}`,
 });
 
-export default function BreadCrumbs({ items, isBreadCrumbsTitleShow = false, breadCrumbsTitle, sx, ...props }) {
+export default function BreadCrumbs({
+  items,
+  isBreadCrumbsTitleShow = false,
+  breadCrumbsTitle,
+  sx,
+  ...props
+}) {
   const { length } = items;
 
   return (
@@ -21,16 +27,20 @@ export default function BreadCrumbs({ items, isBreadCrumbsTitleShow = false, bre
         variant="h4"
         pb={1.5}
         sx={{
-          fontSize: '19px',
-          lineHeight: '23px',
-          textTransform: 'capitalize',
+          fontSize: "19px",
+          lineHeight: "23px",
+          textTransform: "capitalize",
         }}
       >
         {!isBreadCrumbsTitleShow ? items[length - 1].label : breadCrumbsTitle}
       </Typography>
       <Breadcrumbs separator="/">
         {items.map((item, index) => (
-          <Link key={item.to} to={item.to} style={linkStyle(index === length - 1)}>
+          <Link
+            key={item.to}
+            href={item.to}
+            style={linkStyle(index === length - 1)}
+          >
             {item.label}
           </Link>
         ))}

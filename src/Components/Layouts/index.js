@@ -14,6 +14,7 @@ import { useMemo, useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { admin_menu_items } from "../../common/admin_sidebar_menu_items";
+import { useGlobalContext } from "@/src/context";
 
 const getRouteAndSidebarItems = (
   userType,
@@ -58,30 +59,10 @@ const getRouteAndSidebarItems = (
 
 export default function Layout({ children }) {
   const [sidebar, setSidebar] = useState(false);
-  // const { routes, menuItems } = useMemo(
-  //   () =>
-  //     getRouteAndSidebarItems(
-  //       currentUser?.userType,
-  //       currentUser?.adminType,
-  //       currentUser?.shop?.haveOwnDeliveryBoy ? "self" : "drop",
-  //       // eslint-disable-next-line prettier/prettier
-  //       currentUser?.shop?.shopType
-  //     ),
-  //   // eslint-disable-next-line prettier/prettier
-  //   [currentUser?.userType]
-  // );
 
-  // const location = useLocation();
+  const { currentUser } = useGlobalContext();
 
-  // // check and update route depth
-  // useEffect(() => {
-  //   console.log(location);
-  //   // admin
-  //   if (currentUser?.userType === 'admin') {
-
-  //   } else if (currentUser?.userType === 'seller') {
-  //   }
-  // }, [location]);
+  console.log("currentUser", currentUser);
 
   return (
     <Box

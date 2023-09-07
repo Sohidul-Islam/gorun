@@ -1,4 +1,8 @@
 import {
+  getCookiesAsObject,
+  setCookiesAsObj,
+} from "@/src/helpers/cookies/getCookiesAsObject";
+import {
   Menu,
   MenuItem,
   Modal,
@@ -7,9 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-
-import getCookiesAsObject from "../../../helpers/cookies/getCookiesAsObject";
-import setCookiesAsObject from "../../../helpers/cookies/setCookiesAsObject";
 
 const StyledMenuItem = styled(MenuItem)(() => ({
   fontSize: "13px!important",
@@ -28,7 +29,7 @@ export default function AccountMenu({ anchorEl, handleClose }) {
 
   const _logout = () => {
     const authCookies = getCookiesAsObject();
-    setCookiesAsObject(authCookies, 0);
+    setCookiesAsObj(authCookies, 0);
     window.location.reload(true);
   };
 
