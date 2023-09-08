@@ -24,12 +24,9 @@ export default function App({ Component, pageProps }) {
     <Provider>
       <ContextProvider>
         <QueryClientProvider client={queryClient}>
-          {route.pathname === "/login" && <Component {...pageProps} />}
-          {route.pathname !== "/login" && (
             <AuthMiddleWare>
               <Component {...pageProps} />
             </AuthMiddleWare>
-          )}
         </QueryClientProvider>
       </ContextProvider>
     </Provider>

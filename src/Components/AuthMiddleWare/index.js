@@ -64,11 +64,15 @@ function AuthMiddleWare({ children }) {
     });
 
     setAdminDataIsLoading(false);
-    // setRender(true);
+    router.push("/");
   };
 
   useEffect(() => {
     validateUser();
+
+    // if (router.pathname === "/login" && currentUser?.adminType === "admin") {
+    //   validateUser();
+    // }
   }, []);
 
   if (adminDataIsLoading) {
@@ -88,6 +92,7 @@ function AuthMiddleWare({ children }) {
 
   return (
     <Box>
+      {router.pathname === "/login" && !adminDataIsLoading && children}
       <Box>{!adminDataIsLoading && <Layout children={children} />}</Box>
       <ToastContainer />
     </Box>
