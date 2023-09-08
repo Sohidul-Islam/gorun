@@ -1,7 +1,8 @@
 import React from "react";
 import SidebarContainer from "../../Common/SidebarContainerSm";
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import StyledFormField from "../../Common/Form/StyledFormField";
+import { Add } from "@mui/icons-material";
 
 function AddShop({ onClose }) {
   return (
@@ -63,6 +64,22 @@ function AddShop({ onClose }) {
             placeholder: "Passport number here...",
           }}
         />
+
+        <Stack
+          direction="row"
+          justifyContent={"start"}
+          alignItems="start"
+          mt={7.5}
+        >
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            // disabled={addShopType?.isLoading || editShopType?.isLoading}
+            // onClick={onSubmitShopTypeHandlerer}
+          >
+            Add
+          </Button>
+        </Stack>
       </Stack>
     </SidebarContainer>
   );

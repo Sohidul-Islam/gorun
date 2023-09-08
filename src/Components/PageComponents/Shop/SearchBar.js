@@ -39,7 +39,7 @@ function SearchBar({ onAdd, setQueryParams, queryParams }) {
       />
       <FilterSelect
         items={sortOptions}
-        value={queryParams.sortBy}
+        value={queryParams?.sortBy}
         placeholder="Sort"
         tooltip="Sort"
         size="sm"
