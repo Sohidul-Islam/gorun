@@ -3,7 +3,7 @@ import { debounce } from "@mui/material/utils";
 import moment from "moment";
 import { useMemo } from "react";
 
-import StyledDateRangePicker from "../Styled/StyledDateRangePicker";
+// import StyledDateRangePicker from "../Styled/StyledDateRangePicker";
 import StyledSearchBar from "../Styled/StyledSearchBar";
 
 import FilterSelect from "./Filter/FilterSelect";
@@ -71,7 +71,7 @@ export default function SearchBar({
           }}
         />
       )}
-      {showFilters?.date && (
+      {/* {showFilters?.date && (
         <StyledDateRangePicker
           startDate={
             queryParams.startDate === "null"
@@ -91,7 +91,7 @@ export default function SearchBar({
             }));
           }}
         />
-      )}
+      )} */}
       {/* sort */}
       {showFilters?.sort && (
         <FilterSelect

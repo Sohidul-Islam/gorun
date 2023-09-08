@@ -1,3 +1,4 @@
+"use client";
 import { useGlobalContext } from "@/src/context";
 import {
   getCookiesAsObject,

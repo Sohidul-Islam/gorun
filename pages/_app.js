@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useRouter } from "next/router";
 import AuthMiddleWare from "@/src/Components/AuthMiddleWare";
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

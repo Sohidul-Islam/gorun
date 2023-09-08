@@ -1,3 +1,4 @@
+"use client";
 import Login from "@/src/Components/PageComponents/Login";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
