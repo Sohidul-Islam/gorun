@@ -23,13 +23,13 @@ function AdminDashBoard() {
       <Summary />
       <Grid container spacing={7.5} mt={3}>
         <Grid item xs={12} md={6}>
-          <ChartBox>
+          <ChartBox title={"User Graph"}>
             <CommonAreaChart />
           </ChartBox>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <ChartBox>
+          <ChartBox title={"Order Graph"}>
             <CommonAreaChart />
           </ChartBox>
         </Grid>

@@ -39,7 +39,7 @@ export default function Form({
   return (
     <Box
       sx={{
-        width: "380px",
+        width: { xs: "90vw", sm: "400px", md: "380px" },
       }}
     >
       <form

@@ -92,8 +92,12 @@ function AuthMiddleWare({ children }) {
 
   return (
     <Box>
-      {router.pathname === "/login" && !adminDataIsLoading && children}
-      <Box>{!adminDataIsLoading && <Layout children={children} />}</Box>
+      {router.pathname === "/login" ? (
+        children
+      ) : (
+        <Box>{!adminDataIsLoading && <Layout children={children} />}</Box>
+      )}
+
       <ToastContainer />
     </Box>
   );
