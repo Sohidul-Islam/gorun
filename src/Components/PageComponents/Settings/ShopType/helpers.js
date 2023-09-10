@@ -14,6 +14,12 @@ export const validatedShopType = (data) => {
     return status;
   }
 
+  if (data?._id) {
+    const shopTypeId = data?._id;
+    delete data._id;
+    return { status: true, data: { ...data, shopTypeId } };
+  }
+
   return { status: true, data };
 };
 

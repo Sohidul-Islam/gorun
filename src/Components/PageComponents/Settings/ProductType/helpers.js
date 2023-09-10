@@ -1,6 +1,6 @@
 import { successMsg } from "@/src/Components/Shared/successMsg";
 
-export const validatedShopType = (data) => {
+export const validatedCategory = (data) => {
   const status = {
     status: false,
   };
@@ -9,6 +9,7 @@ export const validatedShopType = (data) => {
     successMsg("Please provide shoptype name");
     return status;
   }
+
   if (!data?.activeStatus) {
     successMsg("Please provide shop active status");
     return status;

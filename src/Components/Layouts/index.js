@@ -84,8 +84,8 @@ export default function Layout({ children }) {
         />
         <Box
           sx={{
-            paddingLeft: "50px",
-            paddingRight: "50px",
+            paddingLeft: { xs: "25px", sm: "16px", md: "50px" },
+            paddingRight: { xs: "25px", sm: "16px", md: "50px" },
             height: "calc(100vh - 67px)",
             overflowY: "scroll",
             backgroundColor: "#fbfbfb",

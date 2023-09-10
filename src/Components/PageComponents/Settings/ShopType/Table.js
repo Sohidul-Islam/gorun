@@ -4,7 +4,13 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
 
-function Table({ rows = [], loading }) {
+function Table({
+  rows = [],
+  loading,
+  setCurrentShopType,
+  setOpen,
+  setConfirm,
+}) {
   const columns = [
     {
       id: 1,
@@ -39,7 +45,8 @@ function Table({ rows = [], loading }) {
           <IconButton
             color="primary"
             onClick={() => {
-              console.log("row", row);
+              setCurrentShopType(row);
+              setOpen(true);
             }}
           >
             <Edit />
@@ -47,7 +54,8 @@ function Table({ rows = [], loading }) {
           <IconButton
             color="primary"
             onClick={() => {
-              console.log("row", row);
+              setCurrentShopType(row);
+              setConfirm(true);
             }}
           >
             <Delete />

@@ -7,7 +7,7 @@ import { Add } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { getShopTypeData, validatedShopType } from "./helpers";
+import { getShopTypeData, validatedCategory } from "./helpers";
 
 const typeOptions = [
   {
@@ -53,7 +53,7 @@ function AddProductType({ onClose, shopTypeData = {} }) {
   );
 
   const onSubmitShopTypeHandlerer = () => {
-    const validated = validatedShopType(shopType);
+    const validated = validatedCategory(shopType);
 
     console.log("shopType", validated);
 

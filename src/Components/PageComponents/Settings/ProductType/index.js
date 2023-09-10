@@ -16,7 +16,10 @@ const staticData = [
 
 function ProductType() {
   const [open, setOpen] = useState(false);
+
   const [queryParams, setQueryParams] = useState({ ...initialQueryParams });
+
+  const [currentShopCategory, setCurrentShopCategory] = useState({});
 
   const getShopType = useQuery([API_URL.GET_CATEGORY, { ...queryParams }], () =>
     AXIOS.get(API_URL.GET_CATEGORY, {
@@ -55,8 +58,10 @@ function ProductType() {
       </Box>
       <Drawer open={open} anchor="right">
         <AddProductType
+          currentShopCategory={currentShopCategory}
           onClose={() => {
             setOpen(false);
+            setCurrentShopCategory({});
           }}
         />
       </Drawer>

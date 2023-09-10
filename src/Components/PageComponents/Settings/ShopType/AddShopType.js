@@ -6,7 +6,7 @@ import * as API_URL from "@/src/network/api";
 import { Add } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import React, { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getShopTypeData, validatedShopType } from "./helpers";
 
 const typeOptions = [
@@ -26,6 +26,10 @@ const typeOptions = [
 
 function AddShopType({ onClose, shopTypeData = {} }) {
   const [shopType, setShopType] = useState(getShopTypeData(shopTypeData));
+
+  console.log("shopType", shopTypeData);
+
+  const queryClient = useQueryClient();
   const onChangeHandler = (e) => {
     setShopType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -36,6 +40,10 @@ function AddShopType({ onClose, shopTypeData = {} }) {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+          queryClient.invalidateQueries(API_URL.GET_SHOP_TYPE);
+          onClose();
+        } else {
+          successMsg(data?.message, "warn");
         }
       },
     }
@@ -47,6 +55,10 @@ function AddShopType({ onClose, shopTypeData = {} }) {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+          queryClient.invalidateQueries(API_URL.GET_SHOP_TYPE);
+          onClose();
+        } else {
+          successMsg(data?.message, "warn");
         }
       },
     }
@@ -75,6 +87,7 @@ function AddShopType({ onClose, shopTypeData = {} }) {
           inputProps={{
             placeholder: "Write type name here",
             name: "name",
+            value: shopType?.name,
             onChange: onChangeHandler,
           }}
         />
@@ -82,6 +95,7 @@ function AddShopType({ onClose, shopTypeData = {} }) {
           intputType={"select"}
           label={"Select Status"}
           inputProps={{
+            value: shopType?.activeStatus || shopType?.status,
             items: typeOptions,
             type: "text",
             name: "activeStatus",

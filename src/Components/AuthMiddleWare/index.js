@@ -64,7 +64,7 @@ function AuthMiddleWare({ children }) {
     });
 
     setAdminDataIsLoading(false);
-    router.push("/");
+    // router.push("/");
   };
 
   useEffect(() => {

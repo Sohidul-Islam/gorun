@@ -16,7 +16,10 @@ const staticData = [
 
 function ShopTypePage() {
   const [open, setOpen] = useState(false);
+
   const [queryParams, setQueryParams] = useState({ ...initialQueryParams });
+
+  const [currentShopType, setCurrentShopType] = useState({});
 
   const getShopType = useQuery(
     [API_URL.GET_SHOP_TYPE, { ...queryParams }],
@@ -25,7 +28,9 @@ function ShopTypePage() {
         params: { ...queryParams },
       })
   );
+
   console.log("getShop", getShopType?.data?.data?.shopTypes);
+
   return (
     <Box>
       <PageTop
@@ -47,18 +52,18 @@ function ShopTypePage() {
 
       <Box mt={7.5}>
         <Table
-          rows={
-            getShopType?.data?.data?.shopTypes?.length > 0
-              ? getShopType?.data?.data?.shopTypes
-              : staticData
-          }
+          setCurrentShopType={setCurrentShopType}
+          setOpen={setOpen}
+          rows={getShopType?.data?.data?.shopTypes}
           loading={getShopType?.isLoading}
         />
       </Box>
       <Drawer open={open} anchor="right">
         <AddShopType
+          shopTypeData={currentShopType}
           onClose={() => {
             setOpen(false);
+            setCurrentShopType({});
           }}
         />
       </Drawer>
