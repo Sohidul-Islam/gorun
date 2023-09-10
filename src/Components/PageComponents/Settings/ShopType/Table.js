@@ -13,7 +13,7 @@ function Table({
 }) {
   const columns = [
     {
-      id: 1,
+      id: 1.5,
       headerName: "SHOP TYPE",
       field: "name",
       flex: 1,
@@ -77,6 +77,8 @@ function Table({
         borderRadius: "7px",
         background: "#fff",
         position: "relative",
+        // maxWidth: "1536px",
+        // overflow: "auto",
       }}
     >
       <StyledTable

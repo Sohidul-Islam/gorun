@@ -1,6 +1,6 @@
 import StyledTable from "@/src/Components/Styled/StyledTable3";
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
 
@@ -18,12 +18,15 @@ function Table({ rows = [], loading }) {
     },
     {
       id: 1,
-      headerName: "STATUS",
-      field: "activeStatus",
+      headerName: "IMAGE",
+      field: "image",
       flex: 1,
       sortable: false,
       renderCell: ({ value }) => (
-        <Typography variant="body4">{value}</Typography>
+        <Stack direction="row" alignItems="center" gap={2}>
+          <Avatar src={value}>C</Avatar>
+          <Typography>Category {Math.round(Math.random() * 10)}</Typography>
+        </Stack>
       ),
     },
     {

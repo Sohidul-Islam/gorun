@@ -2,7 +2,7 @@ import PageTop from "@/src/Components/Common/PageTop";
 import { Box, Drawer } from "@mui/material";
 import React, { useState } from "react";
 import SearchBar from "../../Shop/SearchBar";
-import AddProductType from "./AddProductType";
+import AddCategoryType from "./AddProductType";
 import Table from "./Table";
 import { useQuery } from "react-query";
 import AXIOS from "@/src/network/Axios";
@@ -14,7 +14,7 @@ const staticData = [
   { _id: 2, name: "Product Type 2", activeStatus: "online" },
 ];
 
-function ProductType() {
+function CategoryType() {
   const [open, setOpen] = useState(false);
 
   const [queryParams, setQueryParams] = useState({ ...initialQueryParams });
@@ -26,6 +26,7 @@ function ProductType() {
       params: { ...queryParams },
     })
   );
+
   console.log("getShop", getShopType?.data?.data?.categories);
   return (
     <Box>
@@ -57,7 +58,7 @@ function ProductType() {
         />
       </Box>
       <Drawer open={open} anchor="right">
-        <AddProductType
+        <AddCategoryType
           currentShopCategory={currentShopCategory}
           onClose={() => {
             setOpen(false);
@@ -69,4 +70,4 @@ function ProductType() {
   );
 }
 
-export default ProductType;
+export default CategoryType;

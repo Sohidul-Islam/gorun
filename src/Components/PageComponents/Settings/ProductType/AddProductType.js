@@ -5,9 +5,9 @@ import AXIOS from "@/src/network/Axios";
 import * as API_URL from "@/src/network/api";
 import { Add } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { getShopTypeData, validatedCategory } from "./helpers";
+import { getCategoryData, validatedCategory } from "./helpers";
 
 const typeOptions = [
   {
@@ -24,45 +24,65 @@ const typeOptions = [
   },
 ];
 
-function AddProductType({ onClose, shopTypeData = {} }) {
-  const [shopType, setShopType] = useState(getShopTypeData(shopTypeData));
+function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
+  const [categoryType, setCategoryType] = useState(
+    getCategoryData(currentCategory)
+  );
   const onChangeHandler = (e) => {
-    setShopType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setCategoryType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const addShopType = useMutation(
+  const getShopType = useQuery([API_URL.GET_SHOP_TYPE], () =>
+    AXIOS.get(API_URL.GET_SHOP_TYPE)
+  );
+
+  const typeOptions2 = useMemo(() => {
+    if (getShopType?.data?.data?.shopTypes?.length > 0) {
+      return getShopType?.data?.data?.shopTypes?.map(({ name, _id }) => ({
+        label: name,
+        value: _id,
+      }));
+    }
+    return [];
+  }, [getShopType?.data?.data]);
+
+  const addCategoryType = useMutation(
     (data) => AXIOS.post(API_URL.ADD_CATEGORY, data),
     {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+        } else {
+          successMsg(data?.message, "warn");
         }
       },
     }
   );
 
-  const editShopType = useMutation(
+  const editCategoryType = useMutation(
     (data) => AXIOS.post(API_URL.UPDATE_CATEGORY, data),
     {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+        } else {
+          successMsg(data?.message, "warn");
         }
       },
     }
   );
 
   const onSubmitShopTypeHandlerer = () => {
-    const validated = validatedCategory(shopType);
+    const validated = validatedCategory(categoryType);
 
     console.log("shopType", validated);
 
-    if (shopType?._id && validated?.status !== false) {
-      editShopType.mutate(validated?.data);
+    if (categoryType?._id && validated?.status !== false) {
+      editCategoryType.mutate(validated?.data);
       return;
     }
     if (validated?.status !== false) {
-      addShopType.mutate(validated?.data);
+      addCategoryType.mutate(validated?.data);
     }
   };
 
@@ -74,6 +94,7 @@ function AddProductType({ onClose, shopTypeData = {} }) {
           label={"Add Category Name"}
           inputProps={{
             placeholder: "Write category name here",
+            value: categoryType?.name,
             name: "name",
             onChange: onChangeHandler,
           }}
@@ -83,9 +104,10 @@ function AddProductType({ onClose, shopTypeData = {} }) {
           intputType={"select"}
           label={"Select Shop Type"}
           inputProps={{
-            items: typeOptions,
-            // type: "text",
-            name: "image",
+            items: typeOptions2 || [],
+            // type: "text"
+            value: categoryType?.shopType,
+            name: "shopType",
             placeholder: "Select shop type",
             onChange: onChangeHandler,
           }}
@@ -97,6 +119,7 @@ function AddProductType({ onClose, shopTypeData = {} }) {
           inputProps={{
             // type: "text",
             name: "image",
+            value: categoryType?.image,
             // placeholder: "Select Status",
             onChange: onChangeHandler,
           }}
@@ -106,7 +129,7 @@ function AddProductType({ onClose, shopTypeData = {} }) {
           <Button
             variant="contained"
             startIcon={<Add />}
-            disabled={addShopType?.isLoading || editShopType?.isLoading}
+            disabled={addCategoryType?.isLoading || editCategoryType?.isLoading}
             onClick={onSubmitShopTypeHandlerer}
           >
             Add
@@ -117,4 +140,4 @@ function AddProductType({ onClose, shopTypeData = {} }) {
   );
 }
 
-export default AddProductType;
+export default AddCategoryType;

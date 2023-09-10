@@ -6,26 +6,33 @@ export const validatedCategory = (data) => {
   };
 
   if (!data?.name) {
-    successMsg("Please provide shoptype name");
+    successMsg("Please provide category name");
     return status;
   }
 
-  if (!data?.activeStatus) {
-    successMsg("Please provide shop active status");
+  if (!data?.shopType) {
+    successMsg("Please select shoptype");
     return status;
+  }
+
+  if (data?._id) {
+    const categoryId = data?._id;
+    delete data?._id;
+    return { status: true, data: { ...data, categoryId } };
   }
 
   return { status: true, data };
 };
 
-export const getShopTypeData = (data) => {
+export const getCategoryData = (data) => {
   if (data?._id) {
     return { ...data };
   }
 
   return {
     name: "",
-    activeStatus: "",
+    shopType: "",
+    image: "https://source.unsplash.com/random",
   };
 };
 
