@@ -112,6 +112,19 @@ function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
             onChange: onChangeHandler,
           }}
         />
+        
+        <StyledFormField
+          intputType={"select"}
+          label={"Select Shop Type"}
+          inputProps={{
+            items: typeOptions2 || [],
+            // type: "text"
+            value: categoryType?.shopType,
+            name: "shopType",
+            placeholder: "Select shop type",
+            onChange: onChangeHandler,
+          }}
+        />
 
         <StyledFormField
           intputType={"file"}

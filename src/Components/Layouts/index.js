@@ -66,12 +66,12 @@ export default function Layout({ children }) {
 
   return (
     <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        height: "100vh",
-        overflowY: "hidden",
-      }}
+      sx={
+        {
+          // height: "100vh",
+          // overflowY: "hidden",
+        }
+      }
     >
       <Topbar sidebar={sidebar} setSidebar={setSidebar} />
       <Box position="relative">

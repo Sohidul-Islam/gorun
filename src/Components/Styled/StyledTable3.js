@@ -1,61 +1,66 @@
-import { styled } from '@mui/material/styles';
-import { DataGrid } from '@mui/x-data-grid';
-import * as React from 'react';
+import { styled } from "@mui/material/styles";
+import { DataGrid } from "@mui/x-data-grid";
+import * as React from "react";
 
 const StyledGrid3 = styled(DataGrid)(({ theme }) => ({
   border: `0px`,
-  borderRadius: '7px',
-  WebkitFontSmoothing: 'auto',
-  letterSpacing: 'normal',
+  borderRadius: "7px",
+  WebkitFontSmoothing: "auto",
+  letterSpacing: "normal",
 
-  '& .MuiDataGrid-columnHeaders': {
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "max(90vw, 350px)",
+    overflowY: "auto",
+  },
+
+  "& .MuiDataGrid-columnHeaders": {
     borderBottom: `1px dashed ${theme.palette.custom.border}`,
   },
 
-  '& .MuiDataGrid-columnHeader': {
-    padding: '0px 6px',
+  "& .MuiDataGrid-columnHeader": {
+    padding: "0px 6px",
 
-    '&:focus-within': {
-      outline: 'none',
+    "&:focus-within": {
+      outline: "none",
     },
   },
 
-  '& .MuiDataGrid-iconSeparator': {
-    display: 'none',
+  "& .MuiDataGrid-iconSeparator": {
+    display: "none",
   },
 
-  '& .MuiDataGrid-columnHeaderTitle': {
-    [theme.breakpoints.up('lg')]: {
-      fontWeight: '600',
-      fontSize: '14px',
-      lineHeight: '17px',
-      letterSpacing: '0.03em',
-      color: theme.palette.text.secondary2,
+  "& .MuiDataGrid-columnHeaderTitle": {
+    [theme.breakpoints.up("lg")]: {
+      fontWeight: "600",
+      fontSize: "14px",
+      lineHeight: "17px",
+      letterSpacing: "0.03em",
+      color: theme.palette.text.secondary,
     },
 
     color: theme.palette.text.primary,
   },
 
-  '& .MuiDataGrid-footerContainer': {
-    display: 'none',
+  "& .MuiDataGrid-footerContainer": {
+    display: "none",
   },
 
-  '& .MuiDataGrid-row:hover': {
-    backgroundColor: 'transparent!important',
+  "& .MuiDataGrid-row:hover": {
+    backgroundColor: "transparent!important",
   },
 
-  '& .MuiDataGrid-cell': {
+  "& .MuiDataGrid-cell": {
     borderBottom: `1px dashed ${theme.palette.custom.border}`,
-    padding: '0px 6px',
+    padding: "0px 6px",
 
-    '&.MuiDataGrid-cellContent': {
-      fontWeight: '500',
-      fontSize: '15px',
-      lineHeight: '18px',
+    "&.MuiDataGrid-cellContent": {
+      fontWeight: "500",
+      fontSize: "15px",
+      lineHeight: "18px",
     },
 
-    '&:focus-within': {
-      outline: 'none',
+    "&:focus-within": {
+      outline: "none",
     },
   },
 }));

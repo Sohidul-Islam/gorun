@@ -27,7 +27,7 @@ function SearchBar({ onAdd, setQueryParams, queryParams }) {
   ];
 
   return (
-    <Stack direction={"row"} gap={4}>
+    <Stack direction={"row"} flexWrap={"wrap"} gap={4}>
       <StyledSearchBar
         placeholder="Search..."
         size="small"

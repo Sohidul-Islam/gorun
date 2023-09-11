@@ -25,6 +25,7 @@ function Table({ loading, queryParams, data }) {
       headerName: "Name",
       field: "shopName",
       flex: 1.5,
+      minWidth: 150,
       sortable: false,
       renderCell: ({ row }) => (
         <UserAvatar
@@ -53,7 +54,8 @@ function Table({ loading, queryParams, data }) {
       sortable: false,
       headerName: "SELLER",
       field: "sellerName",
-      flex: 1,
+      flex: 1.5,
+      minWidth: 150,
       renderCell: ({ value }) => (
         <Typography variant="body4">{value}</Typography>
       ),
@@ -63,7 +65,7 @@ function Table({ loading, queryParams, data }) {
       sortable: false,
       headerName: "# ITEM SOLD",
       field: "itemsSold",
-      flex: 1,
+      flex: 1.3,
       renderCell: ({ value }) => (
         <Typography variant="body4">{value}</Typography>
       ),
@@ -74,6 +76,7 @@ function Table({ loading, queryParams, data }) {
       headerName: "RATING",
       field: "rating",
       flex: 1,
+      minWidth: 100,
       align: "center",
       headerAlign: "center",
       renderCell: ({ value }) => <Rating amount={value} />,
@@ -85,6 +88,7 @@ function Table({ loading, queryParams, data }) {
       field: "profit",
       flex: 1,
       align: "right",
+      minWidth: 100,
       headerAlign: "right",
       renderCell: ({ value }) => (
         <Typography variant="body4">

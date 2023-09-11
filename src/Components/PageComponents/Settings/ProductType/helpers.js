@@ -32,6 +32,7 @@ export const getCategoryData = (data) => {
   return {
     name: "",
     shopType: "",
+    status: "active",
     image: "https://source.unsplash.com/random",
   };
 };

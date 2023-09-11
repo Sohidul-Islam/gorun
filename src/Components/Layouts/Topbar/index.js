@@ -74,7 +74,7 @@ export default function Topbar({ setSidebar, sidebar }) {
         }`,
       }}
     >
-      <Stack direction="row" alignItems="center" gap={2}>
+      <Stack direction="row" alignItems="center" gap={2} flex={1}>
         <Box>
           <IconButton
             color="inherit"
@@ -88,27 +88,22 @@ export default function Topbar({ setSidebar, sidebar }) {
           </IconButton>
         </Box>
         <Stack direction="row" alignItems="center" gap={2}>
-          <Image alt="logo" src={logo} height={40} />
+          <Image alt="logo" src={logo} className="brand-logo" height={40} />
           <Typography
             variant="inherit"
-            fontSize={22}
-            lineHeight="26px"
+            // fontSize={22}
+            // lineHeight="26px"
             fontWeight={500}
+            sx={{
+              fontSize: { sm: 12, md: 18, lg: 22 },
+            }}
           >
             Admin Console
             {/* {getConsoleName(currentUser.userType, currentUser.adminType)} */}
           </Typography>
         </Stack>
-        {/* <Box
-          sx={{
-            marginBottom: "-43px",
-            paddingLeft: "40px",
-          }}
-        >
-          <Tabs />
-        </Box> */}
       </Stack>
-      <Stack direction="row" alignItems="center" gap="25px">
+      <Stack direction="row" alignItems="center" gap={2.5}>
         <Typography
           variant="body2"
           sx={{ display: "flex", alignItems: "center", gap: 2 }}
@@ -118,7 +113,7 @@ export default function Topbar({ setSidebar, sidebar }) {
         <Button variant="text" disableRipple sx={{ minWidth: 0 }}>
           <Notifications />
         </Button>
-        <IconButton onClick={handleClick} disableRipple>
+        <IconButton onClick={handleClick} disableRipple sx={{ padding: 0 }}>
           <Avatar
             // src={und}
             alt="photo"
