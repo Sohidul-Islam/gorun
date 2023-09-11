@@ -13,8 +13,8 @@ export default function SidebarContainer({
     <Stack
       justifyContent="space-between"
       sx={{
-        minWidth: "350px",
-        maxWidth: "350px",
+        minWidth: "min(80vw,350px)",
+        maxWidth: "min(80vw,350px)",
         paddingLeft: "20px",
         paddingRight: "20px",
         paddingTop: "60px",
