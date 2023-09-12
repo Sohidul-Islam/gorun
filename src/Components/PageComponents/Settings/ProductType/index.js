@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import SearchBar from "../../Shop/SearchBar";
 import AddCategoryType from "./AddProductType";
 import Table from "./Table";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import AXIOS from "@/src/network/Axios";
 import * as API_URL from "@/src/network/api";
 import { initialQueryParams } from "./helpers";
+import ConfirmModal from "@/src/Components/Common/ConfirmModal";
 
 const staticData = [
   { _id: 1, name: "Product Type 1", activeStatus: "online" },
@@ -19,12 +20,29 @@ function CategoryType() {
 
   const [queryParams, setQueryParams] = useState({ ...initialQueryParams });
 
-  const [currentShopCategory, setCurrentShopCategory] = useState({});
+  const [currentCategory, setCategoryType] = useState({});
+
+  const [isConfirm, setIsConfirm] = useState(false);
 
   const getShopType = useQuery([API_URL.GET_CATEGORY, { ...queryParams }], () =>
     AXIOS.get(API_URL.GET_CATEGORY, {
       params: { ...queryParams },
     })
+  );
+
+  const deleteCategoryType = useMutation(
+    (data) => AXIOS.post(API_URL.DELETE_CATEGORY, data),
+    {
+      onSuccess: (data) => {
+        if (data?.status) {
+          successMsg(data?.message, "success");
+          queryClient.invalidateQueries(API_URL.GET_CATEGORY);
+          setIsConfirm(false);
+        } else {
+          successMsg(data?.message, "error");
+        }
+      },
+    }
   );
 
   console.log("getShop", getShopType?.data?.data?.categories);
@@ -49,23 +67,34 @@ function CategoryType() {
 
       <Box mt={7.5}>
         <Table
-          rows={
-            getShopType?.data?.data?.categories?.length > 0
-              ? getShopType?.data?.data?.categories
-              : staticData
-          }
+          rows={getShopType?.data?.data?.categories}
           loading={getShopType?.isLoading}
+          setCategoryType={setCategoryType}
+          setOpen={setOpen}
+          setConfirm={setIsConfirm}
         />
       </Box>
       <Drawer open={open} anchor="right">
         <AddCategoryType
-          currentShopCategory={currentShopCategory}
+          currentCategory={currentCategory}
           onClose={() => {
             setOpen(false);
-            setCurrentShopCategory({});
+            setCategoryType({});
           }}
         />
       </Drawer>
+
+      <ConfirmModal
+        isOpen={isConfirm}
+        message="Are you sure you want to delete this type?"
+        onCancel={() => {
+          setIsConfirm(false);
+        }}
+        loading={deleteCategoryType?.isLoading}
+        onConfirm={() => {
+          deleteCategoryType.mutate({ categoryId: currentCategory?._id });
+        }}
+      />
     </Box>
   );
 }

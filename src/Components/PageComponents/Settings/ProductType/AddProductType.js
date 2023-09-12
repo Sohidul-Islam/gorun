@@ -6,7 +6,7 @@ import * as API_URL from "@/src/network/api";
 import { Add } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getCategoryData, validatedCategory } from "./helpers";
 
 const typeOptions = [
@@ -24,13 +24,16 @@ const typeOptions = [
   },
 ];
 
-function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
+function AddCategoryType({ onClose, currentCategory = {} }) {
   const [categoryType, setCategoryType] = useState(
     getCategoryData(currentCategory)
   );
+
+  console.log("categoryType", categoryType);
   const onChangeHandler = (e) => {
     setCategoryType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const queryClient = useQueryClient();
 
   const getShopType = useQuery([API_URL.GET_SHOP_TYPE], () =>
     AXIOS.get(API_URL.GET_SHOP_TYPE)
@@ -52,6 +55,8 @@ function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+          queryClient.invalidateQueries(API_URL.GET_CATEGORY);
+          onClose();
         } else {
           successMsg(data?.message, "warn");
         }
@@ -65,6 +70,8 @@ function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
+          queryClient.invalidateQueries(API_URL.GET_CATEGORY);
+          onClose();
         } else {
           successMsg(data?.message, "warn");
         }
@@ -75,13 +82,11 @@ function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
   const onSubmitShopTypeHandlerer = () => {
     const validated = validatedCategory(categoryType);
 
-    console.log("shopType", validated);
-
     if (categoryType?._id && validated?.status !== false) {
       editCategoryType.mutate(validated?.data);
       return;
     }
-    if (validated?.status !== false) {
+    if (!categoryType?._id && validated?.status !== false) {
       addCategoryType.mutate(validated?.data);
     }
   };
@@ -106,21 +111,8 @@ function AddCategoryType({ onClose, shopTypeData: currentCategory = {} }) {
           inputProps={{
             items: typeOptions2 || [],
             // type: "text"
-            value: categoryType?.shopType,
-            name: "shopType",
-            placeholder: "Select shop type",
-            onChange: onChangeHandler,
-          }}
-        />
-        
-        <StyledFormField
-          intputType={"select"}
-          label={"Select Shop Type"}
-          inputProps={{
-            items: typeOptions2 || [],
-            // type: "text"
-            value: categoryType?.shopType,
-            name: "shopType",
+            value: categoryType?.shopTypeId,
+            name: "shopTypeId",
             placeholder: "Select shop type",
             onChange: onChangeHandler,
           }}

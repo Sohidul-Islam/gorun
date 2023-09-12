@@ -10,7 +10,7 @@ export const validatedCategory = (data) => {
     return status;
   }
 
-  if (!data?.shopType) {
+  if (!data?.shopTypeId) {
     successMsg("Please select shoptype");
     return status;
   }
@@ -26,13 +26,14 @@ export const validatedCategory = (data) => {
 
 export const getCategoryData = (data) => {
   if (data?._id) {
-    return { ...data };
+    const shopTypeId = data?.shopType;
+    delete data?.shopType;
+    return { ...data, shopTypeId };
   }
 
   return {
     name: "",
-    shopType: "",
-    status: "active",
+    shopTypeId: "",
     image: "https://source.unsplash.com/random",
   };
 };

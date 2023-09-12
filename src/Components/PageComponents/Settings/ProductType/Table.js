@@ -3,8 +3,9 @@ import { Delete, Edit } from "@mui/icons-material";
 import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
+import UserAvatar from "@/src/Components/Common/UserAvatar";
 
-function Table({ rows = [], loading }) {
+function Table({ rows = [], setCategoryType, setOpen, setConfirm, loading }) {
   const columns = [
     {
       id: 1,
@@ -12,21 +13,29 @@ function Table({ rows = [], loading }) {
       field: "name",
       flex: 1,
       sortable: false,
-      renderCell: ({ value }) => (
-        <Typography variant="body4">{value}</Typography>
+      renderCell: ({ row }) => (
+        <UserAvatar
+          imgAlt={"categoryImage"}
+          imgUrl={row?.image}
+          name={row?.name}
+        />
       ),
     },
     {
       id: 1,
-      headerName: "IMAGE",
-      field: "image",
+      headerName: "STATUS",
+      field: "status",
       flex: 1,
       sortable: false,
       renderCell: ({ value }) => (
-        <Stack direction="row" alignItems="center" gap={2}>
-          <Avatar src={value}>C</Avatar>
-          <Typography>Category {Math.round(Math.random() * 10)}</Typography>
-        </Stack>
+        <Typography
+          sx={{
+            textTransform: "capitalize",
+            color: value === "active" ? "primary.main" : "text.primary",
+          }}
+        >
+          {value}
+        </Typography>
       ),
     },
     {
@@ -42,7 +51,8 @@ function Table({ rows = [], loading }) {
           <IconButton
             color="primary"
             onClick={() => {
-              console.log("row", row);
+              setCategoryType(row);
+              setOpen(true);
             }}
           >
             <Edit />
@@ -50,7 +60,8 @@ function Table({ rows = [], loading }) {
           <IconButton
             color="primary"
             onClick={() => {
-              console.log("row", row);
+              setCategoryType(row);
+              setConfirm(true);
             }}
           >
             <Delete />
