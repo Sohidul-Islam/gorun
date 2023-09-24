@@ -12,6 +12,7 @@ import StyledInput from "../../Styled/StyledInput";
 import StyledSwitch from "../../Styled/StyledSwitch";
 import StyledFileDropzone from "../../Styled/StyledFileDropzone";
 import FilterSelect from "../Filter/FilterSelect";
+import ImagePreview from "./ImagePreview";
 // import ImagePreview from "../Common/ImagePreview";
 // import LoadingOverlay from "../Common/LoadingOverlay";
 // import FilterDate from "../Filter/FilterDate";
@@ -165,7 +166,6 @@ export default function StyledFormField({
                 readOnly={inputProps.readOnly}
               />
             )}
-            {inputProps.disabled && <LoadingOverlay />}
           </Stack>
         )}
 

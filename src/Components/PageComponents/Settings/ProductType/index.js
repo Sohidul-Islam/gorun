@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import SearchBar from "../../Shop/SearchBar";
 import AddCategoryType from "./AddProductType";
 import Table from "./Table";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import AXIOS from "@/src/network/Axios";
 import * as API_URL from "@/src/network/api";
 import { initialQueryParams } from "./helpers";
 import ConfirmModal from "@/src/Components/Common/ConfirmModal";
+import { successMsg } from "@/src/Components/Shared/successMsg";
 
 const staticData = [
   { _id: 1, name: "Product Type 1", activeStatus: "online" },
@@ -24,6 +25,8 @@ function CategoryType() {
 
   const [isConfirm, setIsConfirm] = useState(false);
 
+  const queryClient = useQueryClient();
+
   const getShopType = useQuery([API_URL.GET_CATEGORY, { ...queryParams }], () =>
     AXIOS.get(API_URL.GET_CATEGORY, {
       params: { ...queryParams },
@@ -34,12 +37,13 @@ function CategoryType() {
     (data) => AXIOS.post(API_URL.DELETE_CATEGORY, data),
     {
       onSuccess: (data) => {
+        queryClient.invalidateQueries(API_URL.GET_CATEGORY);
+        console.log("data?.status", data?.status);
         if (data?.status) {
           successMsg(data?.message, "success");
-          queryClient.invalidateQueries(API_URL.GET_CATEGORY);
           setIsConfirm(false);
         } else {
-          successMsg(data?.message, "error");
+          successMsg(data?.message, "warn");
         }
       },
     }
@@ -49,7 +53,7 @@ function CategoryType() {
   return (
     <Box>
       <PageTop
-        title={"Shop Types"}
+        title={"Categories"}
         backButtonLabel={"Back"}
         backTo={"/settings"}
         sx={{

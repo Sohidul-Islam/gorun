@@ -65,14 +65,7 @@ export default function Layout({ children }) {
   console.log("currentUser", currentUser);
 
   return (
-    <Box
-      sx={
-        {
-          // height: "100vh",
-          // overflowY: "hidden",
-        }
-      }
-    >
+    <Box>
       <Topbar sidebar={sidebar} setSidebar={setSidebar} />
       <Box position="relative">
         <Sidebar

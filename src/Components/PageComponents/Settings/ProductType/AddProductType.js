@@ -25,15 +25,29 @@ const typeOptions = [
 ];
 
 function AddCategoryType({ onClose, currentCategory = {} }) {
-  const [categoryType, setCategoryType] = useState(
-    getCategoryData(currentCategory)
-  );
+  const [categoryType, setCategoryType] = useState({
+    ...getCategoryData(currentCategory),
+    _id: currentCategory?._id,
+  });
 
   console.log("categoryType", categoryType);
   const onChangeHandler = (e) => {
     setCategoryType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const queryClient = useQueryClient();
+
+  const onDrop = (acceptedFiles) => {
+    const newFiles = acceptedFiles.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+
+    setCategoryType((prev) => ({
+      ...prev,
+      image: newFiles,
+    }));
+  };
 
   const getShopType = useQuery([API_URL.GET_SHOP_TYPE], () =>
     AXIOS.get(API_URL.GET_SHOP_TYPE)
@@ -79,14 +93,14 @@ function AddCategoryType({ onClose, currentCategory = {} }) {
     }
   );
 
-  const onSubmitShopTypeHandlerer = () => {
-    const validated = validatedCategory(categoryType);
-
-    if (categoryType?._id && validated?.status !== false) {
+  const onSubmitShopTypeHandlerer = async () => {
+    const validated = await validatedCategory(categoryType);
+    if (currentCategory?._id && validated?.status !== false) {
       editCategoryType.mutate(validated?.data);
       return;
     }
-    if (!categoryType?._id && validated?.status !== false) {
+
+    if (!currentCategory?._id && validated?.status !== false) {
       addCategoryType.mutate(validated?.data);
     }
   };
@@ -123,10 +137,9 @@ function AddCategoryType({ onClose, currentCategory = {} }) {
           label={"Category Image"}
           inputProps={{
             // type: "text",
-            name: "image",
-            value: categoryType?.image,
+            onDrop,
+            files: categoryType?.image,
             // placeholder: "Select Status",
-            onChange: onChangeHandler,
           }}
         />
 

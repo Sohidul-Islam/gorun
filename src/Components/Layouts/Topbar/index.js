@@ -63,12 +63,13 @@ export default function Topbar({ setSidebar, sidebar }) {
       direction="row"
       alignItems="center"
       justifyContent="space-between"
-      pt="15px"
-      pb="15px"
-      pl="30px"
-      pr="30px"
       sx={{
         background: "#fff",
+        padding: {
+          xs: "15px 15px 15px 15px",
+          md: "15px 20px 15px 25px",
+          lg: "15px 30px 15px 30px",
+        },
         borderBottom: `1px solid ${
           sidebar ? "rgba(177, 177, 177, 0.2)" : "transparent"
         }`,

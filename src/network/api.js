@@ -5,6 +5,9 @@ export const ADMIN_ENDPOINT = "admin";
 export const LOGIN = `${ADMIN_ENDPOINT}/auth/login`;
 export const SINGLE_ADMIN = `${ADMIN_ENDPOINT}/profile/single`;
 
+export const imageUploadApiKey = "56c4a7ca54b76bd22d6fa47aba65358e";
+export const IMAGE_UPLOAD = "https://api.imgbb.com/1/upload";
+
 // shop type
 
 export const ADD_SHOP_TYPE = `${ADMIN_ENDPOINT}/shopType/add`;

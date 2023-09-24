@@ -67,12 +67,11 @@ function AddShopType({ onClose, shopTypeData = {} }) {
   const onSubmitShopTypeHandlerer = () => {
     const validated = validatedShopType(shopType);
 
-    console.log("shopType", validated);
-
     if (shopType?._id && validated?.status !== false) {
       editShopType.mutate(validated?.data);
       return;
     }
+
     if (validated?.status !== false) {
       addShopType.mutate(validated?.data);
     }

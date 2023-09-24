@@ -69,10 +69,6 @@ function AuthMiddleWare({ children }) {
 
   useEffect(() => {
     validateUser();
-
-    // if (router.pathname === "/login" && currentUser?.adminType === "admin") {
-    //   validateUser();
-    // }
   }, []);
 
   if (adminDataIsLoading) {

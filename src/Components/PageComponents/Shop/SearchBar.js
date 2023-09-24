@@ -28,15 +28,16 @@ function SearchBar({ onAdd, setQueryParams, queryParams }) {
 
   return (
     <Stack direction={"row"} flexWrap={"wrap"} gap={4}>
-      <StyledSearchBar
-        placeholder="Search..."
-        size="small"
-        fullWidth={true}
-        value={queryParams?.searchKey}
-        onChange={(e) => {
-          updateSearch(e.target.value);
-        }}
-      />
+      <Stack flex={1}>
+        <StyledSearchBar
+          placeholder="Search..."
+          size="small"
+          value={queryParams?.searchKey}
+          onChange={(e) => {
+            updateSearch(e.target.value);
+          }}
+        />
+      </Stack>
       <FilterSelect
         items={sortOptions}
         value={queryParams?.sortBy}

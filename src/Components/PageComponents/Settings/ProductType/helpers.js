@@ -1,6 +1,7 @@
+import { getImageUrl } from "@/src/Components/Shared/image";
 import { successMsg } from "@/src/Components/Shared/successMsg";
 
-export const validatedCategory = (data) => {
+export const validatedCategory = async (data) => {
   const status = {
     status: false,
   };
@@ -15,26 +16,44 @@ export const validatedCategory = (data) => {
     return status;
   }
 
-  if (data?._id) {
-    const categoryId = data?._id;
-    delete data?._id;
-    return { status: true, data: { ...data, categoryId } };
+  if (!data?.image?.length) {
+    successMsg("Please add image");
+    return status;
   }
 
-  return { status: true, data };
+  let imageUrl = "";
+
+  if (data?.image?.length) {
+    successMsg("Please wait untill image uploading");
+    imageUrl = await getImageUrl(data?.image[0]);
+
+    if (!imageUrl) {
+      return { status: false, message: "Image not upload" };
+    }
+  }
+
+  const categoryId = data?._id;
+
+  return {
+    status: true,
+    data: data?._id
+      ? { ...data, image: imageUrl, categoryId }
+      : { ...data, image: imageUrl },
+  };
 };
 
 export const getCategoryData = (data) => {
   if (data?._id) {
     const shopTypeId = data?.shopType;
     delete data?.shopType;
-    return { ...data, shopTypeId };
+    console.log("data get", data);
+    return { ...data, image: [{ preview: data?.image }], shopTypeId };
   }
 
   return {
     name: "",
     shopTypeId: "",
-    image: "https://source.unsplash.com/random",
+    image: [],
   };
 };
 
