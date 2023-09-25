@@ -6,6 +6,7 @@ import ContextProvider from "@/src/context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useRouter } from "next/router";
 import AuthMiddleWare from "@/src/Components/AuthMiddleWare";
+import Head from "next/head";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,9 +25,12 @@ export default function App({ Component, pageProps }) {
     <Provider>
       <ContextProvider>
         <QueryClientProvider client={queryClient}>
-            <AuthMiddleWare>
-              <Component {...pageProps} />
-            </AuthMiddleWare>
+          <Head>
+            <meta name="viewport" content="width=1024" />
+          </Head>
+          <AuthMiddleWare>
+            <Component {...pageProps} />
+          </AuthMiddleWare>
         </QueryClientProvider>
       </ContextProvider>
     </Provider>

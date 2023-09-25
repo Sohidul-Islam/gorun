@@ -23,3 +23,7 @@ export const ADD_CATEGORY = `${ADMIN_ENDPOINT}/category/add`;
 export const UPDATE_CATEGORY = `${ADMIN_ENDPOINT}/category/update`;
 export const DELETE_CATEGORY = `${ADMIN_ENDPOINT}/category/delete`;
 export const GET_CATEGORY = `${ADMIN_ENDPOINT}/category`;
+
+// shop
+export const GET_SHOP = `${ADMIN_ENDPOINT}/shop`;
+export const UPDATE_SHOP = `${ADMIN_ENDPOINT}/shop/update`;
