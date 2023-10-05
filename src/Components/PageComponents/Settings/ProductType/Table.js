@@ -1,9 +1,17 @@
 import StyledTable from "@/src/Components/Styled/StyledTable3";
 import { Delete, Edit } from "@mui/icons-material";
-import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Chip,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
 import UserAvatar from "@/src/Components/Common/UserAvatar";
+import { statusColor } from "../../Shop/Table";
 
 function Table({ rows = [], setCategoryType, setOpen, setConfirm, loading }) {
   const columns = [
@@ -28,14 +36,11 @@ function Table({ rows = [], setCategoryType, setOpen, setConfirm, loading }) {
       flex: 1,
       sortable: false,
       renderCell: ({ value }) => (
-        <Typography
-          sx={{
-            textTransform: "capitalize",
-            color: value === "active" ? "primary.main" : "text.primary",
-          }}
-        >
-          {value}
-        </Typography>
+        <Chip
+          label={statusColor[value].label}
+          color={statusColor[value].color}
+          variant="outlined"
+        />
       ),
     },
     {

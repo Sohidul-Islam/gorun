@@ -1,8 +1,9 @@
 import StyledTable from "@/src/Components/Styled/StyledTable3";
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
+import { statusColor } from "../../Shop/Table";
 
 function Table({
   rows = [],
@@ -29,7 +30,12 @@ function Table({
       flex: 1,
       sortable: false,
       renderCell: ({ value }) => (
-        <Typography variant="body4">{value}</Typography>
+        <Chip
+          label={statusColor[value].label}
+          color={statusColor[value].color}
+          sx={{ textTransform: "capitalize" }}
+          variant="outlined"
+        />
       ),
     },
     {

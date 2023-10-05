@@ -21,7 +21,7 @@ function RankingTable({ title, children }) {
           {title}
         </Typography>
       </Stack>
-      {!children && <Table data={staticRankingData} />}
+      {!children ? <Table data={staticRankingData} /> : children}
     </Box>
   );
 }

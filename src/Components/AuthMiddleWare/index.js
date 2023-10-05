@@ -12,27 +12,26 @@ import Layout from "../Layouts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { successMsg } from "../Shared/successMsg";
+import Login from "../PageComponents/Login";
+import LoginPage from "@/pages/login";
 
 function AuthMiddleWare({ children }) {
   const router = useRouter();
   const { dispatchCurrentUser, currentUser } = useGlobalContext();
 
-  console.log("currentUser", currentUser);
-  //   const { userType, adminType, shop } = currentUser;
-
   const goToLogin = () => {
     router.push("/login");
-    setRender(true);
+    setIsValid(false);
+    setAdminDataIsLoading(false);
   };
 
   const [adminDataIsLoading, setAdminDataIsLoading] = useState(true);
 
-  const [render, setRender] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const validateUser = async () => {
     // no cookie found inside user browser
     if (document.cookie.length < 1) {
-      setAdminDataIsLoading(false);
       goToLogin();
       return;
     }
@@ -42,18 +41,15 @@ function AuthMiddleWare({ children }) {
     // any cookie is missing
     if (!account_type || !account_id || !access_token) {
       removeAuthCookies();
-      setAdminDataIsLoading(false);
       return;
     }
 
     // get user data
     const userData = await getUserData(account_type, account_id);
 
-    console.log("userData", userData);
     // user data is not found
     if (!userData?.status && userData?.invalidUser) {
       removeAuthCookies();
-      setAdminDataIsLoading(false);
       goToLogin();
       return;
     }
@@ -63,15 +59,16 @@ function AuthMiddleWare({ children }) {
       payload: { [account_type]: userData?.user, isCurrentUser: true },
     });
 
+    setIsValid(true);
+
     setAdminDataIsLoading(false);
-    // router.push("/");
   };
 
   useEffect(() => {
     validateUser();
   }, []);
 
-  if (adminDataIsLoading) {
+  if (adminDataIsLoading && !isValid) {
     return (
       <Box>
         <Stack
@@ -89,9 +86,13 @@ function AuthMiddleWare({ children }) {
   return (
     <Box>
       {router.pathname === "/login" ? (
-        children
+        <LoginPage
+          onSuccessLoggin={(isValid) => {
+            setIsValid(isValid);
+          }}
+        />
       ) : (
-        <Box>{!adminDataIsLoading && <Layout children={children} />}</Box>
+        <Box>{isValid && <Layout children={children} />}</Box>
       )}
 
       <ToastContainer />

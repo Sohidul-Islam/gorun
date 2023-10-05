@@ -6,7 +6,7 @@ import StyledTable from "@/src/Components/Styled/StyledTable3";
 import TablePagination from "@/src/Components/Common/TablePagination";
 import Rating from "@/src/Components/Common/Rating";
 
-function Table({ loading, queryParams, data }) {
+function Table({ loading, queryParams, setQueryParams, data }) {
   const column = [
     {
       id: 1,
@@ -146,9 +146,11 @@ function Table({ loading, queryParams, data }) {
           </Box>
           <TablePagination
             currentPage={queryParams?.shopPage}
-            lisener={(shopPage) =>
-              setQueryParams((prev) => ({ ...prev, shopPage }))
-            }
+            lisener={(shopPage) => {
+              if (setQueryParams)
+                setQueryParams((prev) => ({ ...prev, shopPage }));
+              console.log("log");
+            }}
             totalPage={queryParams?.totalPageShop || 1}
           />
         </>

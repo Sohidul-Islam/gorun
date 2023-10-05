@@ -20,7 +20,7 @@ import AXIOS from "@/src/network/Axios";
 import { setCookiesAsObj } from "@/src/helpers/cookies/getCookiesAsObject";
 import { successMsg } from "../../Shared/successMsg";
 
-export default function Login({ loginFor }) {
+export default function Login({ loginFor, onSuccessLoggin }) {
   const history = useRouter();
   const { dispatchCurrentUser } = useGlobalContext();
   const [accountType, setAccountType] = useState("");
@@ -33,6 +33,7 @@ export default function Login({ loginFor }) {
 
     if (!data?.status) {
       setLoginError(data?.message);
+      onSuccessLoggin(false);
       return;
     }
 
@@ -64,6 +65,7 @@ export default function Login({ loginFor }) {
         isCurrentUser: true,
       },
     });
+    onSuccessLoggin(true);
 
     history.push("/");
   };

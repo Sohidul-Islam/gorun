@@ -4,11 +4,11 @@ import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 
-function LoginPage() {
+function LoginPage({ onSuccessLoggin }) {
   const route = useRouter();
   return (
     <Box>
-      <Login loginFor={route?.pathname === "/login" ? "team" : "business"} />
+      <Login loginFor={route?.pathname === "/login" ? "team" : "business"} onSuccessLoggin={onSuccessLoggin}/>
     </Box>
   );
 }

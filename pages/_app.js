@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
       <ContextProvider>
         <QueryClientProvider client={queryClient}>
           <Head>
-            <meta name="viewport" content="width=1024" />
+            <meta name="viewport" content="width=768" />
           </Head>
           <AuthMiddleWare>
             <Component {...pageProps} />

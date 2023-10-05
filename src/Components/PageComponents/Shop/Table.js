@@ -5,7 +5,7 @@ import StyledTable from "../../Styled/StyledTable3";
 import { Delete, Edit } from "@mui/icons-material";
 import UserAvatar from "../../Common/UserAvatar";
 
-const statusColor = {
+export const statusColor = {
   inactive: {
     color: "danger",
     label: "Inactive",
@@ -13,6 +13,18 @@ const statusColor = {
   active: {
     color: "primary",
     label: "Active",
+  },
+  online: {
+    color: "primary",
+    label: "Online",
+  },
+  offline: {
+    color: "danger",
+    label: "offline",
+  },
+  both: {
+    color: "secondary",
+    label: "both",
   },
 };
 
