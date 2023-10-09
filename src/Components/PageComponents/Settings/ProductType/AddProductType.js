@@ -30,7 +30,6 @@ function AddCategoryType({ onClose, currentCategory = {} }) {
     _id: currentCategory?._id,
   });
 
-  console.log("categoryType", categoryType);
   const onChangeHandler = (e) => {
     setCategoryType((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

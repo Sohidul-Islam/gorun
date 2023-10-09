@@ -4,6 +4,7 @@ import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import TableSkeleton from "../../Skeleton/TableSkeleton";
 import { statusColor } from "../../Shop/Table";
+import UserAvatar from "@/src/Components/Common/UserAvatar";
 
 function Table({
   rows = [],
@@ -19,10 +20,15 @@ function Table({
       field: "name",
       flex: 1,
       sortable: false,
-      renderCell: ({ value }) => (
-        <Typography variant="body4">{value}</Typography>
+      renderCell: ({ row }) => (
+        <UserAvatar
+          imgAlt={"categoryImage"}
+          imgUrl={row?.image}
+          name={row?.name}
+        />
       ),
     },
+
     {
       id: 1,
       headerName: "STATUS",

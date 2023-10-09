@@ -64,8 +64,8 @@ function AddShopType({ onClose, shopTypeData = {} }) {
     }
   );
 
-  const onSubmitShopTypeHandlerer = () => {
-    const validated = validatedShopType(shopType);
+  const onSubmitShopTypeHandlerer = async () => {
+    const validated = await validatedShopType(shopType);
 
     if (shopType?._id && validated?.status !== false) {
       editShopType.mutate(validated?.data);
@@ -75,6 +75,19 @@ function AddShopType({ onClose, shopTypeData = {} }) {
     if (validated?.status !== false) {
       addShopType.mutate(validated?.data);
     }
+  };
+
+  const onDrop = (acceptedFiles) => {
+    const newFiles = acceptedFiles.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+
+    setShopType((prev) => ({
+      ...prev,
+      image: newFiles,
+    }));
   };
 
   return (
@@ -100,6 +113,17 @@ function AddShopType({ onClose, shopTypeData = {} }) {
             name: "activeStatus",
             placeholder: "Select Status",
             onChange: onChangeHandler,
+          }}
+        />
+
+        <StyledFormField
+          intputType={"file"}
+          label={"Shop Type Image"}
+          inputProps={{
+            // type: "text",
+            onDrop,
+            files: shopType?.image,
+            // placeholder: "Select Status",
           }}
         />
 
